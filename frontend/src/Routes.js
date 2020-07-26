@@ -3,6 +3,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Navigation from './layout/Navigation'
 import Home from './core/Home'
 import Search from './core/Search'
+import Signup from './core/Signup'
+import Signin from './core/Signin'
 
 const Routes = () => {
     return (
@@ -12,6 +14,8 @@ const Routes = () => {
             <Switch>
                 <Route exact={true} path="/"  component={Home} />
                 <Route exact={true} path="/search"  component={Search} />
+                <Route exact={true} path="/signin"  component={Signin} />
+                <Route exact={true} path="/signup"  component={Signup} />
             </Switch>
             </BrowserRouter>
         </div>

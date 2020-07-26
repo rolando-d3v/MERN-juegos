@@ -6,7 +6,7 @@ const Cardx = ({ e_videogame }) => {
   const [count, setCount] = useState(e_videogame.count);
 
   return (
-    <Card style={{ width: "19rem", margin: "1em" }}>
+    <Card style={{ width: "22rem", margin: "1em" }}>
       <ShowImage item={e_videogame} url="videogame" />
       <Card.Body>
         <Card.Title>{e_videogame.name} </Card.Title>

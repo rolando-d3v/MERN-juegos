@@ -35,7 +35,7 @@ const Home = (req, res) => {
     return (
         <div>
             <div className="container-fluid mt-4">
-                <div className="row">
+                <div className="row justify-content-between">
                     {videogames.map((e_videogame, i) => (
                         <div key={i} >
                             <Cardx e_videogame={e_videogame} />

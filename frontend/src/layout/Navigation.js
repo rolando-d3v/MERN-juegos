@@ -1,7 +1,18 @@
 import React from "react";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import {Link, withRouter} from 'react-router-dom'
+import { Navbar, Nav, NavDropdown, NavItem } from "react-bootstrap";
 
-const Navigation = () => {
+import { isAuthenticated, signout } from "../core/apiCore";
+
+const isActive = (history, path) => {
+  if (history.location.pathname === path) {
+    return {color: '#ff9900'}
+  } else {
+    return {color: '#ffffff'}
+  }
+}
+
+const Navigation = ({history}) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <div className="container-fluid">
@@ -9,8 +20,7 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            {/* <Link to="/" className="nav-link"  >Inicio</Link> */}
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -23,10 +33,53 @@ const Navigation = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Nav>
+          {/* <Link to="/signup" className="nav-link"  >SignUp</Link> */}
+          {/* <Link to="/signin" className="nav-link"  >SignIn</Link> */}
+          <ul className="navbar-nav">
+              {!isAuthenticated() && (
+                <>
+                  <NavItem className="nav-link">
+                    <Link className="nav-link" to="/signup">
+                      Singup
+                    </Link>
+                  </NavItem>
+                  <NavItem className="nav-link">
+                    <Link className="nav-link" to="/signin">
+                      Login
+                    </Link>
+                  </NavItem>
+                </>
+              )}
+              { isAuthenticated() && (
+                <>
+                  <NavItem className="nav-link">
+                    <Link to="/" className="nav-link">Profile</Link>
+                  </NavItem>
+                  {/* <NavItem className="nav-link">
+                    <Link to="/addcategory" className="nav-link">Add Category</Link>
+                  </NavItem>
+                  <NavItem className="nav-link">
+                    <Link to="/addvideogame" className="nav-link">Add Videogame</Link>
+                  </NavItem> */}
+                  <NavItem className="nav-link">
+                    <Link
+                      to="/"
+                      onClick={() =>
+                        signout(() => {
+                          history.push("/");
+                        })} className="nav-link">
+                      Logout
+                    </Link>
+                  </NavItem>
+                </>
+              )}
+            </ul>
+          </Nav>
         </Navbar.Collapse>
       </div>
     </Navbar>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);
