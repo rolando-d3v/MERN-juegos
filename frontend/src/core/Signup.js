@@ -1,16 +1,66 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
+import { signup } from "./apiCore";
 
 const Signup = () => {
-
-  const [datos, setDatos] = useState({
+  const [values, setValues] = useState({
     name: "",
-    email: ""
-  })
+    email: "",
+    password: "",
+    error: "",
+    success: false,
+  });
+
+  const { name, email, password, error, success } = values;
 
   const obtenerDatos = (e) => {
-    
+    setValues({
+      ...values,
+      error: false,
+      [e.target.name]: e.target.value,
+    });
   };
+
+  const enviarDatos = (e) => {
+    e.preventDefault();
+    setValues({
+      ...values,
+      error: false,
+    });
+    signup({ name, email, password }).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, success: false });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          email: "",
+          password: "",
+          error: "",
+          success: true,
+        });
+      }
+    });
+  };
+
+  const showError = () => (
+    <Alert
+      className="alert-danger alert"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </Alert>
+  );
+
+
+  const showSuccess = () => (
+    <Alert
+      className="alert-info alert"
+      style={{ display: success ? "" : "none" }}
+    >
+      correctamente creado
+    </Alert>
+  );
 
   return (
     <div className="container-fluid">
@@ -26,7 +76,10 @@ const Signup = () => {
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-center ">
-            <Form className="p-3 w-75 mt-5 border-success border">
+            <Form
+              className="p-3 w-75 mt-5 border-success border"
+              onSubmit={enviarDatos}
+            >
               <h4 className="text-center">Sign Up Form</h4>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label>Name</Form.Label>
@@ -50,6 +103,7 @@ const Signup = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
+                  name="password"
                   placeholder="Password"
                   onChange={obtenerDatos}
                 />
@@ -59,6 +113,8 @@ const Signup = () => {
               </Button>
             </Form>
           </div>
+          {showError()}
+      {showSuccess()}
         </div>
       </div>
     </div>

@@ -35,7 +35,6 @@ const Navigation = ({history}) => {
           </Nav>
           <Nav>
           {/* <Link to="/signup" className="nav-link"  >SignUp</Link> */}
-          {/* <Link to="/signin" className="nav-link"  >SignIn</Link> */}
           <ul className="navbar-nav">
               {!isAuthenticated() && (
                 <>
@@ -53,16 +52,14 @@ const Navigation = ({history}) => {
               )}
               { isAuthenticated() && (
                 <>
-                  <NavItem className="nav-link">
                     <Link to="/" className="nav-link">Profile</Link>
-                  </NavItem>
-                  {/* <NavItem className="nav-link">
+                    <Link to="/addvideogame" className="nav-link">Add VideoGame</Link>
                     <Link to="/addcategory" className="nav-link">Add Category</Link>
-                  </NavItem>
-                  <NavItem className="nav-link">
+             
+                 {/* <NavItem className="nav-link">
                     <Link to="/addvideogame" className="nav-link">Add Videogame</Link>
                   </NavItem> */}
-                  <NavItem className="nav-link">
+                  
                     <Link
                       to="/"
                       onClick={() =>
@@ -71,7 +68,6 @@ const Navigation = ({history}) => {
                         })} className="nav-link">
                       Logout
                     </Link>
-                  </NavItem>
                 </>
               )}
             </ul>

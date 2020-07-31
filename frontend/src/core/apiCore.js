@@ -1,10 +1,11 @@
 import { API } from "../config";
 
+//obtener todos los videogames
 export const getVideogames = async () => {
-  const re = await fetch(`${API}/videogame/videogames`, {
+  const datos = await fetch(`${API}/videogame/videogames`, {
     method: "GET",
   });
-  return await re.json();
+  return await datos.json();
 };
 
 // export const getVideogames = () => {
@@ -42,7 +43,6 @@ export const authenticate = (data, next) => {
   }
 };
 
-
 export const signout = (next) => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
@@ -50,11 +50,28 @@ export const signout = (next) => {
     return fetch(`${API}/auth/signout`, {
       method: "GET",
     })
-    .then((response) => {
-      console.log("signout", response);
-    })
-    .catch((err) => console.log(err));
+      .then((response) => {
+        console.log("signout", response);
+      })
+      .catch((err) => console.log(err));
   }
+};
+
+export const signup = (user) => {
+  return fetch(`${API}/auth/signup`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const isAuthenticated = () => {
@@ -67,4 +84,51 @@ export const isAuthenticated = () => {
   } else {
     return false;
   }
+};
+
+export const createCategory = (userId, token, category) => {
+  return fetch(`${API}/category/create/${userId}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(category),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getCategories = () => {
+  return fetch(`${API}/category/categories`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const createVideogame = (userId, token, videogame) => {
+  return fetch(`${API}/videogame/create`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: videogame
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

@@ -44,12 +44,23 @@ exports.signin = (req, res) => {
   });
 };
 
-
+// borrar token y salir de sesion
 exports.signout = (req, res) => {
-  res.clearCookie('t')
-  res.json({message: "signout success"})
-}
+  res.clearCookie("t");
+  res.json({ message: "signout success" });
+};
 
+exports.userById = (req, res, next, id) => {
+  User.findById(id).exec((err, user) => {
+    if (err || !user) {
+      return res.status(400).json({
+        error: "User no Found",
+      });
+    }
+    req.profile = user;
+    next();
+  });
+};
 
 // exports.isAdmin = (req, res, next) => {
 //     let user = req.profile && req.auth && req.profile._id == req.auth._id

@@ -8,6 +8,7 @@ const categorySchema = new Schema(
       require: true,
       maxlength: 32,
       unique: true,
+      lowercase:true
     },
   },
   {

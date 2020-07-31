@@ -75,7 +75,7 @@ const Signin = () => {
             <img
               src="https://images-na.ssl-images-amazon.com/images/I/81EonCXB05L._AC_SX425_.jpg"
               alt="logo"
-              style={{ width: "80%", height: "80%" }}
+              style={{ width: "78%", height: "78%" }}
             />
           </div>
         </div>
@@ -108,11 +108,11 @@ const Signin = () => {
               </Button>
             </Form>
           </div>
-        </div>
-      </div>
-      {showError()}
+          {showError()}
       {showLoading()}
       {redirectUser()}
+        </div>
+      </div>
     </div>
   );
 };

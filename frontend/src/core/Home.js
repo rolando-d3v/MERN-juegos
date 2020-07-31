@@ -8,19 +8,6 @@ const Home = (req, res) => {
     const [videogames, setVideogames] = useState([])
     const [error, setError] = useState(false)
 
-
-    // const loadVideoGame = () => {
-    //     getVideogames().then(data => {
-    //         if(data.error) {
-    //             setError(data.error)
-    //         } else {
-    //             setVideogames(data)
-    //             console.log(data);
-    //         }
-    //     })
-    //   }
-
-    
     const loadVideoGame = async () => {
         const red = await  getVideogames()
         setVideogames(red)

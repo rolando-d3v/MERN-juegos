@@ -12,7 +12,7 @@ const Cardx = ({ e_videogame }) => {
         <Card.Title>{e_videogame.name} </Card.Title>
         <p>{e_videogame.price} </p>
         <Card.Text>{e_videogame.description}</Card.Text>
-        <Button variant="primary" block >Go somewhere</Button>
+        <Button variant="success" block >Ver Mas</Button>
       </Card.Body>
     </Card>
   );
